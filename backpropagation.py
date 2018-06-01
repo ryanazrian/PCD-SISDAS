@@ -190,6 +190,7 @@ str_column_to_int(dataset, len(dataset[0])-1)
 # normalize input variables
 minmax = dataset_minmax(dataset)
 normalize_dataset(dataset, minmax)
+print(dataset)
 # evaluate algorithm
 n_folds = 5
 l_rate = 0.3

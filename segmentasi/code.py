@@ -1,7 +1,7 @@
 import numpy as np
 import cv2
 import kumpulanKode as libs
-
+import object_size as size
 import glob
 
 images = sorted(glob.glob('tomat/*.JPG'))
@@ -11,9 +11,9 @@ j = 1
 
 csv = open("mytomat.csv", "w")
 
-header = 'nama_file, red_avg, green_avg, blue_avg, h_avg, s_avg, v_avg'
-header = header +'\n'
-csv.write(header)
+#header = 'nama_file, red_avg, green_avg, blue_avg, h_avg, s_avg, v_avg'
+#header = header +'\n'
+#csv.write(header)
 
 for tomat in images:
 	img = cv2.imread(tomat)
@@ -64,6 +64,7 @@ for tomat in images:
 	red = red / re
 	green = green/ gr
 	blue = blue / bl
+	jumlah_frek =  re + gr +bl
 
 	HSV = cv2.cvtColor(hasil, cv2.COLOR_RGB2HSV)
 	row, col, ch = HSV.shape
@@ -86,11 +87,18 @@ for tomat in images:
 	sat = sat / sa
 	val = val / va
 
+	#ambil ukuran
+	panjang = 0
+	lebar = 0
+	float(panjang)
+	float(lebar)
+	panjang, lebar = size.cari_size(hasil)
+
 			
 	print('Hasil1/%d/%d_%d.jpg' %(i, i, j))
 	name = 'Hasil1/%d/%d_%d.jpg' %(i, i, j)
 	
-	myTomat = '%s, %d, %d, %d, %d, %d, %d' %(name, red, green, blue, hue, sat, val)
+	myTomat = '%s, %d, %d, %d, %d, %d, %d, %d, %s' %(name, red, green, blue, hue, sat, val, jumlah_frek, panjang)
 	myTomat = myTomat + '\n'
 	#print(myTomat)
 	csv.write(myTomat)
